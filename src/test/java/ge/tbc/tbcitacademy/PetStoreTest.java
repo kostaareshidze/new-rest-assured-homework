@@ -17,10 +17,7 @@ import pet.store.v3.invoker.JacksonObjectMapper;
 import pet.store.v3.model.Category;
 import pet.store.v3.model.Order;
 import pet.store.v3.model.Pet;
-import pet.store.v3.model.Tag;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 import static io.restassured.RestAssured.config;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
