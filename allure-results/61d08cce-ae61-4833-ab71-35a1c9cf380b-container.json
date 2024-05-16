@@ -1,0 +1,1 @@
+{"uuid":"61d08cce-ae61-4833-ab71-35a1c9cf380b","name":"ge.tbc.tbcitacademy.ContinentTest","children":["d9e0c2c1-4c38-424d-9fc2-af39d6b275ea"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1715864218181,"stop":1715864219717}],"afters":[],"start":1715864218073,"stop":1715864225805}

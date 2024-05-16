@@ -1,6 +1,6 @@
 package ge.tbc.tbcitacademy.data;
 
-import application.api.AuthenticationApi;
+
 import com.github.javafaker.Faker;
 import org.testng.annotations.DataProvider;
 
