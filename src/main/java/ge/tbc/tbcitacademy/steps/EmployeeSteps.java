@@ -4,6 +4,7 @@ import com.example.springboot.soap.interfaces.GetEmployeeByIdRequest;
 import com.example.springboot.soap.interfaces.ObjectFactory;
 import ge.tbc.tbcitacademy.data.Constants;
 import ge.tbc.tbcitacademy.data.Marshall;
+import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
 
@@ -16,6 +17,7 @@ import java.util.GregorianCalendar;
 import static io.restassured.RestAssured.given;
 
 public class EmployeeSteps {
+    @Step("Returns response with body '{body}'")
     public Response getByID(String body) {
         return given()
                 .filter(new AllureRestAssured())
@@ -25,17 +27,15 @@ public class EmployeeSteps {
                 .post("http://localhost:8087/ws");
     }
 
+    @Step("returns marshalled request")
     public String getMarshalled() {
         ObjectFactory factory = new ObjectFactory();
-
-        // Create GetEmployeeByIdRequest object
         GetEmployeeByIdRequest getEmployeeByIdRequest = factory.createGetEmployeeByIdRequest();
-
-        // Set employeeId
         getEmployeeByIdRequest.setEmployeeId(Constants.id);
         return Marshall.marshallSoapRequest(getEmployeeByIdRequest);
     }
 
+    @Step("Returns response with body '{body}'")
     public Response addEmployee(String body) {
         return given()
                 .filter(new AllureRestAssured())
@@ -45,6 +45,7 @@ public class EmployeeSteps {
                 .post("http://localhost:8087/ws");
     }
 
+    @Step("Returns response with body '{body}'")
     public Response updateEmployee(String body) {
         return given()
                 .filter(new AllureRestAssured())
@@ -54,6 +55,7 @@ public class EmployeeSteps {
                 .post("http://localhost:8087/ws");
     }
 
+    @Step("Returns response with body '{body}'")
     public Response deleteEmployee(String body) {
         return given()
                 .filter(new AllureRestAssured())
@@ -62,11 +64,12 @@ public class EmployeeSteps {
                 .body(body)
                 .post("http://localhost:8087/ws");
     }
-
+    @Step("returns calendar")
     public XMLGregorianCalendar getCalendar() throws DatatypeConfigurationException {
         DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
         GregorianCalendar birthDateGregorian = new GregorianCalendar(1990, 4, 16); // Note: Month is zero-based (4 = May)
         return datatypeFactory.newXMLGregorianCalendar(birthDateGregorian);
     }
+
 
 }
