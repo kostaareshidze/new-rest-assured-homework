@@ -169,39 +169,37 @@
             <artifactId>eclipselink</artifactId>
             <version>4.0.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-fluent-api</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjc-utils</groupId>
+            <artifactId>cxf-xjc-runtime</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-ts</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-value-constructor</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.13.0</version>
+        </dependency>
 
 
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
-                <version>4.0.4</version>
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/webService.wsdl</wsdl>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/employees.wsdl</wsdl>
-                                </wsdlOption>
-                            </wsdlOptions>
-
-                        </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -224,26 +222,23 @@
                 <version>${maven-surefire-plugin.version}</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <!--                    <suiteXmlFiles>-->
-                    <!--                        <suiteXmlFile>TestNG.xml</suiteXmlFile>-->
-                    <!--                    </suiteXmlFiles>-->
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--                <version>${maven-surefire-plugin.version}</version>-->
+            <!--                <configuration>-->
+            <!--                    <argLine>-->
+            <!--                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
+            <!--                    </argLine>-->
+            <!--                </configuration>-->
+            <!--                <dependencies>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>org.aspectj</groupId>-->
+            <!--                        <artifactId>aspectjweaver</artifactId>-->
+            <!--                        <version>${aspectj.version}</version>-->
+            <!--                    </dependency>-->
+            <!--                </dependencies>-->
+            <!--            </plugin>-->
 
             <plugin>
                 <groupId>org.openapitools</groupId>
@@ -265,7 +260,9 @@
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
                             <configOptions>
-                                <additionalModelTypeAnnotations>@lombok.Data;@lombok.experimental.Accessors(chain = true, fluent = true)</additionalModelTypeAnnotations>
+                                <additionalModelTypeAnnotations>@lombok.Data;@lombok.experimental.Accessors(chain =
+                                    true, fluent = true)
+                                </additionalModelTypeAnnotations>
                                 <identifierNamingConvention>original</identifierNamingConvention>
                                 <library>rest-assured</library>
                                 <serializationLibrary>jackson</serializationLibrary>
@@ -274,6 +271,65 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>4.0.4</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <additionalJvmArgs>-Djavax.xml.accessExternalDTD=all -Djavax.xml.accessExternalSchema=all</additionalJvmArgs>
+                            <sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${project.basedir}/src/main/resources/crcind.wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-validate</extraarg>
+                                        <extraarg>-xjc-Xfluent-api</extraarg>
+                                        <extraarg>-xjc-Xts:style:org.apache.commons.lang3.builder.ToStringStyle.DEFAULT_STYLE</extraarg>
+                                    </extraargs>
+                                    <bindingFiles>
+                                        <bindingFile>http://www.w3.org/2001/XMLSchema.xsd</bindingFile>
+                                        <!--                                        <bindingFile>${project.basedir}/src/main/resources/XMLSchema.xsd</bindingFile>-->
+                                    </bindingFiles>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-fluent-api</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf.xjc-utils</groupId>
+                        <artifactId>cxf-xjc-runtime</artifactId>
+                        <version>4.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.cxf.xjcplugins</groupId>
+                        <artifactId>cxf-xjc-ts</artifactId>
+                        <version>4.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-value-constructor</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-lang3</artifactId>
+                        <version>3.13.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

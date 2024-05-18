@@ -18,8 +18,14 @@ public class Constants {
     public static final String sNameWithAn = "ArrayOftContinent.tContinent.find { it.sCode == 'AN' }.sName";
     public static final String lastSName = "ArrayOftContinent.tContinent[-1].sName";
     public static final Long id = 5L;
-    public static final String message = "Envelope.Body.deleteEmployeeResponse.serviceStatus.message";
+    public static final String deleteMessage = "Envelope.Body.deleteEmployeeResponse.serviceStatus.message";
+    public static final String addMessage = "Envelope.Body.addEmployeeResponse.serviceStatus.message";
+    public static final String updateMessage = "Envelope.Body.updateEmployeeResponse.serviceStatus.message";
     public static final String deleted = "Content Deleted Successfully";
     public static final String added = "Content Added Successfully";
     public static final String updated = "Content Updated Successfully";
+    public static final String SSN = "Envelope.Body.FindPersonResponse.FindPersonResult.SSN";
+    public static final String Name = "Envelope.Body.FindPersonResponse.FindPersonResult.Name";
+    public static final String DoB = "Envelope.Body.FindPersonResponse.FindPersonResult.DOB";
+    public static final String TEN = "10";
 }
